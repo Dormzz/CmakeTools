@@ -1,15 +1,17 @@
+set(VCPKG_CMAKE_SYSTEM_NAME Android)
 if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
     get_filename_component(VCPKG_ROOT $ENV{VCPKG_ROOT} ABSOLUTE)
     string(REPLACE "\\" "/" VCPKG_ROOT ${VCPKG_ROOT})
     get_filename_component(ANDROID_NDK_HOME $ENV{ANDROID_NDK_HOME} ABSOLUTE)
     string(REPLACE "\\" "/" ANDROID_NDK_HOME ${ANDROID_NDK_HOME})
+    set(ENV{VULKAN_SDK} ${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/window-x86_64/sysroot/usr)
 elseif (CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
+    set(ENV{VULKAN_SDK} ${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr)
 elseif (CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
+    set(ENV{VULKAN_SDK} ${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr)
 else()
 endif()
 
-set(VCPKG_CMAKE_SYSTEM_NAME Android)
-set(ENV{VULKAN_SDK} $ENV{ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr)
 
 
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
